@@ -12,16 +12,16 @@ def predict():
         df = pd.DataFrame.from_records(request.json)
 
         # make predictions and create a df out of them
-        pred = house_price_model.predict(df[['age']])
-        pred = pd.DataFrame(pred, columns=['predicted_price'])
+        pred = house_price_model.predict(df)
+        pred = pd.DataFrame(pred, columns=['Price'])
 
         # combine with original data to return it all together
         pred = pd.concat([df, pred], axis=1)
 
-        return(str(pred))
+        return(str(pred.to_dict()))
 
 @app.before_first_request
 def load_model():
     global house_price_model
-    with open('house_price_model', 'rb') as handle:
+    with open('model/house_price_model', 'rb') as handle:
         house_price_model = (pickle.load(handle))
