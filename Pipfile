@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+flask = "*"
+pandas = "*"
 
 [requires]
 python_version = "2.7"
