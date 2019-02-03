@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  web:
+    restart: always
+    build: ./web
+    expose:
+      - "8000"
+    command: /usr/local/bin/gunicorn -b :8000 app:app
+
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - "web"
