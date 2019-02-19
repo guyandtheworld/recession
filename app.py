@@ -24,7 +24,7 @@ def predict():
 
         return(str(pred.to_dict()))
 
-
+# Export the new model here and test with CURL.
 @app.route("/data", methods=['GET'])
 def data():
     return jsonify(get_data())
