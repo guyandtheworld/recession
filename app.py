@@ -1,33 +1,30 @@
-# app.py
-from flask import Flask, request, jsonify, render_template
-import pandas as pd
 import pickle
+import pandas as pd
 
-from stock_scraper import get_data
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
 
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if request.method == 'POST':
-        # turn json format into pandas dataframe
-        df = pd.DataFrame.from_records(request.json)
+@app.route("/forecast", methods=['GET'])
+def forecast_curve():
+    future = model.make_future_dataframe(periods=1260, freq='D')
+    forecast = model.predict(future)
 
-        # make predictions and create a df out of them
-        pred = house_price_model.predict(df)
-        pred = pd.DataFrame(pred, columns=['Price'])
+#     forecast_data = forecast[['ds', 'yhat',
+#                               'yhat_lower', 'yhat_upper']].set_index('ds')
 
-        # combine with original data to return it all together
-        pred = pd.concat([df, pred], axis=1)
+    forecast_data = forecast[['ds', 'yhat_upper']].set_index('ds')
+    return forecast_data[:1000:7].to_json()
 
-        return(str(pred.to_dict()))
 
-# Export the new model here and test with CURL.
 @app.route("/data", methods=['GET'])
 def data():
-    return jsonify(get_data())
+    # Load the DIFF dataframe and return the sampled
+    # dates.
+    yield_curve = pd.read_csv('model/diff_df.csv')
+    return yield_curve.to_json()
 
 
 @app.route("/")
@@ -35,13 +32,11 @@ def index():
     return render_template("index.html")
 
 
-# Loads the model before the first request so the data stays in
-# instance
 @app.before_first_request
 def load_model():
-    global house_price_model
-    with open('model/house_price_model', 'rb') as handle:
-        house_price_model = (pickle.load(handle))
+    global model
+    with open('model/yield_curve_model', 'rb') as handle:
+        model = (pickle.load(handle))
 
 
 if __name__ == '__main__':
