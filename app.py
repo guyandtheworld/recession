@@ -21,10 +21,7 @@ def forecast_curve():
 
 @app.route("/data", methods=['GET'])
 def data():
-    # Load the DIFF dataframe and return the sampled
-    # dates.
-    yield_curve = pd.read_csv('model/diff_df.csv')
-    return yield_curve.to_json()
+    return yield_curve.to_json(orient='index')
 
 
 @app.route("/")
@@ -34,7 +31,8 @@ def index():
 
 @app.before_first_request
 def load_model():
-    global model
+    global model, yield_curve
+    yield_curve = pd.read_csv('model/diff_df.csv').set_index('DATE')
     with open('model/yield_curve_model', 'rb') as handle:
         model = (pickle.load(handle))
 
