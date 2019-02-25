@@ -24,7 +24,7 @@ function createGraph() {
     }
 
     function drawChart(data) {
-        var svgWidth = 600, svgHeight = 400;
+        var svgWidth = 1100, svgHeight = 500;
         var margin = { top: 20, right: 20, bottom: 30, left: 50 };
         var width = svgWidth - margin.left - margin.right;
         var height = svgHeight - margin.top - margin.bottom;
@@ -50,19 +50,28 @@ function createGraph() {
 
         g.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
+            .call(d3.svg.axis().orient('bottom').scale(x))
             .select(".domain")
             .remove();
 
         g.append("g")
-            .call(d3.axisLeft(y))
+            .call(d3.svg.axis().orient('left').scale(y))
             .append("text")
             .attr("fill", "#000")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", "0.71em")
             .attr("text-anchor", "end")
-            .text("Price ($)");
+            .text("% Diff");
+
+        g.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 1.5)
+            .attr("d", line);
 
     }
 }
