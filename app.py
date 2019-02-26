@@ -1,7 +1,6 @@
 import pickle
 import pandas as pd
-import datetime
-
+import json
 
 from flask import Flask, render_template
 
@@ -21,14 +20,19 @@ app = Flask(__name__)
 def forecast_curve():
     future = model.make_future_dataframe(periods=1260, freq='D')
     forecast = model.predict(future)
-    # {"date":"1985-01-02T00:00:00.000Z","value":0.61}
+
     data = []
 
     forecast_data = forecast[['ds', 'yhat_upper']]
-    for row in forecast_data.iterrows():
-        data.append({"date": row[1]['ds'], "value": row[1]['yhat_upper']})
+    forecast_data['ds'] = pd.to_datetime(forecast_data['ds'])
 
-    return forecast_data[:1000:7].to_json()
+    forecast_data = forecast_data[forecast_data['ds'] > '2019-02-08']
+
+    # Take only the forecasted data
+    for row in forecast_data.iterrows():
+        data.append({"date": str(row[1]['ds']), "value": row[1]['yhat_upper']})
+
+    return json.dumps(data)
 
 
 @app.route("/data", methods=['GET'])

@@ -4,6 +4,36 @@ $(function () {
     createGraph();
 });
 
+function forecastCurve() {
+    d3.json("/forecast", function (error, response) {
+        var arr = [];
+        for (stuff in response) {
+            arr.push(
+                {
+                    date: new Date(response[stuff].date),
+                    value: response[stuff].value
+                }
+            );
+        }
+
+        // Append this data onto the existing D3 application.
+        console.log(arr);
+    });
+
+    function parseData(data) {
+        var arr = [];
+        for (index in data.length) {
+            console.log(index);
+            // arr.push(
+            //     {
+            //         date: new Date(index),
+            //         value: + data[index].DIFF
+            //     });
+        }
+        return arr;
+    }
+}
+
 function createGraph() {
 
     d3.json("/data", function (error, response) {
