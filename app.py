@@ -37,6 +37,9 @@ def forecast_curve():
 
 @app.route("/data", methods=['GET'])
 def data():
+    print(yield_curve.tail())
+    # We gotta somehow figure out a way to extrapolate dates to upto 2021?
+    # Also fill with dummy value data.
     return yield_curve.to_json(orient='index')
 
 
