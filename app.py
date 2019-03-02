@@ -9,10 +9,15 @@ app = Flask(__name__)
 
 
 """
-- [ ] Return the forecast on a different end-point
-- [ ] Append forecast to the D3 Graph
+- [ ] Forecasting once a day and saving data (Automating?)
 - [ ] Auto data scraping and updation
 - [ ] Auto train model everyday
+- [ ] Deploy to Docker and AWS?
+- [ ] Recession date calculation
+- [ ] Setup D3 in Node server
+- [ ] Decorate
+- [ ] Deploy
+- [ ] Add support for customizable yield dates
 """
 
 
@@ -37,9 +42,6 @@ def forecast_curve():
 
 @app.route("/data", methods=['GET'])
 def data():
-    print(yield_curve.tail())
-    # We gotta somehow figure out a way to extrapolate dates to upto 2021?
-    # Also fill with dummy value data.
     return yield_curve.to_json(orient='index')
 
 
