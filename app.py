@@ -4,17 +4,20 @@ import json
 
 from flask import Flask, render_template
 
+# from utils import update_bond_data
 
 app = Flask(__name__)
 
 
 """
-- [ ] Forecasting once a day and saving data (Automating?)
-- [ ] Auto data scraping and updation
-- [ ] Auto train model everyday
-- [ ] Deploy to Docker and AWS?
-- [ ] Recession date calculation
+- [x] Updating data
+- [ ] Automate process daily
+- [ ] Forecasting once a day saving, serving
 - [ ] Setup D3 in Node server
+- [ ] Deploy to Docker and AWS
+- [ ] Auto data scraping and     
+- [ ] Auto train model everyday
+- [ ] Recession date calculation
 - [ ] Decorate
 - [ ] Deploy
 - [ ] Add support for customizable yield dates
@@ -53,11 +56,6 @@ def index():
 @app.before_first_request
 def load_model():
     global model, yield_curve
-    yield_curve = pd.read_csv('model/diff_df.csv').set_index('DATE')
+    yield_curve = pd.read_csv('data/diff_df.csv').set_index('DATE')
     with open('model/yield_curve_model', 'rb') as handle:
         model = (pickle.load(handle))
-
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
