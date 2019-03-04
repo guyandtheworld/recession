@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 """
 - [x] Updating data
-- [ ] Automate process daily
 - [ ] Forecasting once a day saving, serving
+- [ ] Automate process daily
 - [ ] Setup D3 in Node server
 - [ ] Deploy to Docker and AWS
 - [ ] Auto data scraping and     
@@ -26,20 +26,12 @@ app = Flask(__name__)
 
 @app.route("/forecast", methods=['GET'])
 def forecast_curve():
-    future = model.make_future_dataframe(periods=1260, freq='D')
-    forecast = model.predict(future)
-
     data = []
 
-    forecast_data = forecast[['ds', 'yhat_upper']]
-    forecast_data['ds'] = pd.to_datetime(forecast_data['ds'])
-
-    forecast_data = forecast_data[forecast_data['ds'] > '2019-02-08']
-
     # Take only the forecasted data
-    for row in forecast_data.iterrows():
-        data.append({"date": str(row[1]['ds']), "value": row[1]['yhat_upper']})
 
+    for row in forecast.iterrows():
+        data.append({"date": str(row[1]['ds']), "value": row[1]['yhat_upper']})
     return json.dumps(data)
 
 
@@ -55,7 +47,8 @@ def index():
 
 @app.before_first_request
 def load_model():
-    global model, yield_curve
+    global model, yield_curve, forecast
+    forecast = pd.read_csv('data/forecast.csv')
     yield_curve = pd.read_csv('data/diff_df.csv').set_index('DATE')
     with open('model/yield_curve_model', 'rb') as handle:
         model = (pickle.load(handle))
