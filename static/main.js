@@ -45,6 +45,8 @@ var line = d3.svg.line()
 
 function drawChart(data) {
 
+    console.log(data[1]);
+
     x.domain(d3.extent(data, function (d) { return d.date }));
     y.domain(d3.extent(data, function (d) { return d.value }));
 

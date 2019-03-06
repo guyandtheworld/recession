@@ -41,10 +41,7 @@ def update_bond_data():
 
 def train_prophet():
     # Load and train prophet with the data
-    df = pd.read_csv("data/diff_df.csv")
-
-    df_prophet = pd.DataFrame(df.DIFF)
-    df_prophet.reset_index(inplace=True)
+    df_prophet = pd.read_csv("data/diff_df.csv")
     df_prophet.columns = ['ds', 'y']
 
     print("Predicting for data...")
@@ -55,12 +52,12 @@ def train_prophet():
     future = model.make_future_dataframe(periods=1260, freq='D')
     forecast = model.predict(future)
 
-    print("Finished forecasting...")
     forecast_data = forecast[['ds', 'yhat_upper']]
     forecast_data['ds'] = pd.to_datetime(forecast_data['ds'])
 
     forecast_data = forecast_data[forecast_data['ds'] > '2019-02-08']
     forecast_data.to_csv('data/forecast.csv')
+    print("Finished forecasting...")
 
 
 train_prophet()

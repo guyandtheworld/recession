@@ -11,7 +11,8 @@ app = Flask(__name__)
 
 """
 - [x] Updating data
-- [ ] Forecasting once a day saving, serving
+- [x] Forecasting once a day saving, serving
+- [x] Fix shitty graph
 - [ ] Automate process daily
 - [ ] Setup D3 in Node server
 - [ ] Deploy to Docker and AWS
