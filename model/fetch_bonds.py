@@ -34,9 +34,9 @@ class FetchBonds:
         self.date = content['seriess'][0]['observation_end']
         return self.date
 
-    def get_observation(self):
+    def get_observation(self, last_date):
         self.OBSERVATION_URL = self.OBSERVATION_URL.format(
-            self.BONDS[self.bond_type], self.API_KEY, self.date, self.date)
+            self.BONDS[self.bond_type], self.API_KEY, last_date)
 
         try:
             response = requests.get(self.OBSERVATION_URL)

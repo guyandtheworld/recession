@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 import json
+import datetime
 
 from flask import Flask, render_template
 
@@ -14,7 +15,7 @@ app = Flask(__name__)
 - [x] Forecasting once a day saving, serving
 - [x] Fix shitty graph
 - [ ] Automate process daily
-- [ ] Setup D3 in Node server
+# - [ ] Setup D3 in Node server
 - [ ] Deploy to Docker and AWS
 - [ ] Auto data scraping and     
 - [ ] Auto train model everyday
@@ -23,6 +24,15 @@ app = Flask(__name__)
 - [ ] Deploy
 - [ ] Add support for customizable yield dates
 """
+
+
+def check_changes():
+    """
+    Check if the dataframe has any changes, if it does
+    update the global variables. This function would be
+    invoked at the certain time of day.
+    """
+    pass
 
 
 @app.route("/forecast", methods=['GET'])
@@ -38,6 +48,8 @@ def forecast_curve():
 
 @app.route("/data", methods=['GET'])
 def data():
+    now = datetime.datetime.now()
+    print(now)
     return yield_curve.to_json(orient='index')
 
 
@@ -49,7 +61,9 @@ def index():
 @app.before_first_request
 def load_model():
     global model, yield_curve, forecast
+    print("JSFJLDKSKJ")
     forecast = pd.read_csv('data/forecast.csv')
     yield_curve = pd.read_csv('data/diff_df.csv').set_index('DATE')
+    print(yield_curve.head())
     with open('model/yield_curve_model', 'rb') as handle:
         model = (pickle.load(handle))

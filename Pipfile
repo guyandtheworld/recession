@@ -20,6 +20,7 @@ wsgiref = "==0.1.2"
 Flask = "==1.0.2"
 MarkupSafe = "==1.1.0"
 Werkzeug = "==0.14.1"
+schedule = "*"
 
 [requires]
 python_version = "2.7"
