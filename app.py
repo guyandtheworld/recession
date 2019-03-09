@@ -17,7 +17,7 @@ app = Flask(__name__)
 - [ ] Automate process daily
 # - [ ] Setup D3 in Node server
 - [ ] Deploy to Docker and AWS
-- [ ] Auto data scraping and     
+- [ ] Auto data scraping and
 - [ ] Auto train model everyday
 - [ ] Recession date calculation
 - [ ] Decorate
@@ -26,13 +26,16 @@ app = Flask(__name__)
 """
 
 
-def check_changes():
+def check_changes(yield_curve, forecast):
     """
     Check if the dataframe has any changes, if it does
     update the global variables. This function would be
     invoked at the certain time of day.
     """
-    pass
+    df = pd.read_csv('data/diff_df.csv').set_index('DATE')
+    if list(df.index)[-1] != list(yield_curve.index)[-1]:
+        forecast = pd.read_csv('data/forecast.csv')
+        yield_curve = df
 
 
 @app.route("/forecast", methods=['GET'])
@@ -48,8 +51,13 @@ def forecast_curve():
 
 @app.route("/data", methods=['GET'])
 def data():
-    now = datetime.datetime.now()
-    print(now)
+    # now = datetime.datetime.now()
+    # print(now)
+    indexs = list(yield_curve.index.values)
+    print('Wattttt')
+    print(set([x for x in indexs if indexs.count(x) > 1]))
+    # yield_curve, forecast = check_changes(yield_curve, forecast)
+
     return yield_curve.to_json(orient='index')
 
 
@@ -61,9 +69,7 @@ def index():
 @app.before_first_request
 def load_model():
     global model, yield_curve, forecast
-    print("JSFJLDKSKJ")
     forecast = pd.read_csv('data/forecast.csv')
     yield_curve = pd.read_csv('data/diff_df.csv').set_index('DATE')
-    print(yield_curve.head())
     with open('model/yield_curve_model', 'rb') as handle:
         model = (pickle.load(handle))
