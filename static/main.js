@@ -1,5 +1,3 @@
-// Custom JavaScript
-
 var parsedData;
 
 d3.json("/data", function (error, response) {
@@ -45,7 +43,7 @@ var line = d3.svg.line()
 
 function drawChart(data) {
 
-    console.log(data[1]);
+    console.log(data);
 
     x.domain(d3.extent(data, function (d) { return d.date }));
     y.domain(d3.extent(data, function (d) { return d.value }));
@@ -80,40 +78,40 @@ function drawChart(data) {
 }
 
 
-function appendData(initial, forecasted) {
+// function appendData(initial, forecasted) {
 
-    return initial.concat(forecasted);
-}
-
-
-function forecastCurve() {
-    d3.json("/forecast", function (error, response) {
-        var forecastedData = [];
-        for (stuff in response) {
-            forecastedData.push(
-                {
-                    date: new Date(response[stuff].date),
-                    value: response[stuff].value
-                }
-            );
-        }
+//     return initial.concat(forecasted);
+// }
 
 
-        data = appendData(parsedData, forecastedData);
+// function forecastCurve() {
+//     d3.json("/forecast", function (error, response) {
+//         var forecastedData = [];
+//         for (stuff in response) {
+//             forecastedData.push(
+//                 {
+//                     date: new Date(response[stuff].date),
+//                     value: response[stuff].value
+//                 }
+//             );
+//         }
 
-        x.domain(d3.extent(data, function (d) { return d.date }));
-        y.domain(d3.extent(data, function (d) { return d.value }));
 
-        var svg = d3.select("svg").transition();
+//         data = appendData(parsedData, forecastedData);
 
-        svg.select(".line")
-            .duration(750)
-            .attr("d", line(data));
-        svg.select(".x.axis") // change the x axis
-            .duration(750)
-            .call(d3.svg.axis().orient('bottom').scale(x))
-        svg.select(".y.axis") // change the y axis
-            .duration(750)
-            .call(d3.svg.axis().orient('left').scale(y));
-    });
-}
+//         x.domain(d3.extent(data, function (d) { return d.date }));
+//         y.domain(d3.extent(data, function (d) { return d.value }));
+
+//         var svg = d3.select("svg").transition();
+
+//         svg.select(".line")
+//             .duration(750)
+//             .attr("d", line(data));
+//         svg.select(".x.axis") // change the x axis
+//             .duration(750)
+//             .call(d3.svg.axis().orient('bottom').scale(x))
+//         svg.select(".y.axis") // change the y axis
+//             .duration(750)
+//             .call(d3.svg.axis().orient('left').scale(y));
+//     });
+// }

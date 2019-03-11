@@ -5,11 +5,14 @@ from utils import update_bond_data, train_prophet
 
 
 def job():
+    """
+    Update data and forecast it.
+    """
     update_bond_data()
     train_prophet()
 
 
-schedule.every(1).seconds.do(job)
+schedule.every().day.do(job)
 
 while True:
     schedule.run_pending()

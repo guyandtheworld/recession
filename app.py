@@ -14,7 +14,8 @@ app = Flask(__name__)
 - [x] Updating data
 - [x] Forecasting once a day saving, serving
 - [x] Fix shitty graph
-- [ ] Automate process daily
+- [x] Automate process daily
+- [ ] Fix the graph!
 # - [ ] Setup D3 in Node server
 - [ ] Deploy to Docker and AWS
 - [ ] Auto data scraping and
@@ -26,16 +27,16 @@ app = Flask(__name__)
 """
 
 
-def check_changes(yield_curve, forecast):
-    """
-    Check if the dataframe has any changes, if it does
-    update the global variables. This function would be
-    invoked at the certain time of day.
-    """
-    df = pd.read_csv('data/diff_df.csv').set_index('DATE')
-    if list(df.index)[-1] != list(yield_curve.index)[-1]:
-        forecast = pd.read_csv('data/forecast.csv')
-        yield_curve = df
+# def check_changes(yield_curve, forecast):
+#     """
+#     Check if the dataframe has any changes, if it does
+#     update the global variables. This function would be
+#     invoked at the certain time of day.
+#     """
+#     df = pd.read_csv('data/diff_df.csv').set_index('DATE')
+#     if list(df.index)[-1] != list(yield_curve.index)[-1]:
+#         forecast = pd.read_csv('data/forecast.csv')
+#         yield_curve = df
 
 
 @app.route("/forecast", methods=['GET'])
@@ -53,11 +54,9 @@ def forecast_curve():
 def data():
     # now = datetime.datetime.now()
     # print(now)
-    indexs = list(yield_curve.index.values)
-    print('Wattttt')
-    print(set([x for x in indexs if indexs.count(x) > 1]))
-    # yield_curve, forecast = check_changes(yield_curve, forecast)
 
+    # yield_curve, forecast = check_changes(yield_curve, forecast)
+    print(yield_curve.tail())
     return yield_curve.to_json(orient='index')
 
 
@@ -68,8 +67,6 @@ def index():
 
 @app.before_first_request
 def load_model():
-    global model, yield_curve, forecast
-    forecast = pd.read_csv('data/forecast.csv')
+    global yield_curve, forecast
+#     forecast = pd.read_csv('data/forecast.csv')
     yield_curve = pd.read_csv('data/diff_df.csv').set_index('DATE')
-    with open('model/yield_curve_model', 'rb') as handle:
-        model = (pickle.load(handle))
