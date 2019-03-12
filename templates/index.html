@@ -7,11 +7,29 @@
     <link href={{ url_for('static', filename='./bower_components/bootstrap/dist/css/bootstrap.min.css') }} rel="stylesheet"
         media="screen">
     <link href={{ url_for('static', filename='main.css') }} rel="stylesheet" media="screen">
+
     <style>
-        .line-chart {
-            border: 1px solid lightgray;
+        /* set the CSS */
+
+        body {
+            font: 12px Arial;
+        }
+
+        path {
+            stroke: steelblue;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: grey;
+            stroke-width: 1;
+            shape-rendering: crispEdges;
         }
     </style>
+
     <script src="https://d3js.org/d3-axis.v1.min.js"></script>
 </head>
 
