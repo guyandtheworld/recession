@@ -9,23 +9,6 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-"""
-- [x] Updating data
-- [x] Forecasting once a day saving, serving
-- [x] Fix shitty graph
-- [x] Automate process daily
-# - [ ] Setup D3 in Node server
-- [ ] Deploy to Docker and AWS
-- [ ] Auto data scraping
-- [ ] Auto train model everyday
-- [ ] Fix the graph!
-- [ ] Recession date calculation
-- [ ] Decorate
-- [ ] Deploy
-- [ ] Add support for customizable yield dates
-"""
-
-
 def check_changes(yield_curve, forecast):
     """
     Check if the dataframe has any changes, if it does
