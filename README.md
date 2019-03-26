@@ -12,7 +12,8 @@ The 3-year Treasury yield Monday moved above the 5-year yield, and it was soon f
 
 ## So what does this project do.
 
-![](https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif)
+<img src="https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif" alt="Recession Gif" width="720" height="370">
+
 
 Basically we have a small web app here where we fetch the interest rates daily from the stlouisfed API for the 3 Year and 5 Year bonds. We then calculate the difference in the interest dates and forecast it using a D3.js
 
