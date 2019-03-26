@@ -1,6 +1,6 @@
 # When's The Next Recession?
 
-## :no_entry: Short the Bonds, Sell the Stocks cause a recession is on it's way baby. :no_entry:
+## :no_entry: Short the Bonds, Sell the Stocks cause a Recession is on it's way baby. :no_entry:
 
 In the Treasury market, shorter-term interest rates this week started to move above some longer-term rates.
 
@@ -12,7 +12,7 @@ The 3-year Treasury yield Monday moved above the 5-year yield, and it was soon f
 
 ## So what does this project do.
 
-<img src="https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif" alt="Recession Gif" width="720" height="370">
+<img src="https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif" alt="Recession Gif" width="780" height="400">
 
 
 Basically we have a small web app here where we fetch the interest rates daily from the stlouisfed API for the 3 Year and 5 Year bonds. We then calculate the difference in the interest dates and forecast it using a D3.js
