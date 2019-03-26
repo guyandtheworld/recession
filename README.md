@@ -1,6 +1,6 @@
 # When's The Next Recession?
 
-:sos: Short the bonds, Sell the stock cause a recession is on it's way baby. :sos:
+## :sos::no_entry: Short the bonds, Sell the stock cause a recession is on it's way baby. :no_entry::sos:
 
 In the Treasury market, shorter-term interest rates this week started to move above some longer-term rates.
 
@@ -12,13 +12,13 @@ The 3-year Treasury yield Monday moved above the 5-year yield, and it was soon f
 
 ## So what does this project do.
 
+![](https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif)
+
 Basically we have a small web app here where we fetch the interest rates daily from the stlouisfed API for the 3 Year and 5 Year bonds. We then calculate the difference in the interest dates and forecast it using a D3.js
 
 #### It's very much near to impossible to actually predict a recession so basically this is just for speculation. 
 
 We use the Facebook's Prophet library to do a simple time series forecasting on this data by extrapolating the curve to speculate when the next recession would happen based on the Yield Curve.
-
-![](https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif)
 
 
 ## Technology
