@@ -6,11 +6,16 @@ That can be an early warning sign of a recession, as it was in 1990, 2001 and 20
 
 The 3-year Treasury yield Monday moved above the 5-year yield, and it was soon followed by the 2-year. The market most closely watches the spread between the 2-year and 10-year, as well as 3-month to 10-year spread, which is the one preferred by the Fed.
 
-## What can we do about it.
+[Read More About This Here](https://www.cnbc.com/2018/12/04/the-yield-curve-explained-and-how-it-became--wall-streets-barometer.html)
+
+## So what does this project do.
+
+Basically we have a small web app here where we fetch the interest rates daily from the stlouisfed API for the 3 Year and 5 Year bonds. We then calculate the difference in the interest dates, it's very much near to impossible to actually predict a recession so basically this is just for speculation. 
+
+We use the Facebook's Prophet library to do a simple time series forecasting on this data by extrapolating the curve to speculate when the next recession would happen based on the Yield Curve.
 
 ![](https://media.giphy.com/media/8c6YTRuQE9ejh2aXIy/giphy.gif)
 
-In this small web app, we'll set up a system to automatically scrap the Interest rates from the bonds and forecast the yield curve using a flask app.
 
 ## Technology
 
