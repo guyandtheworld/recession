@@ -1,6 +1,6 @@
 # When's The Next Recession?
 
-## :sos::no_entry: Short the bonds, Sell the stock cause a recession is on it's way baby. :no_entry::sos:
+## :no_entry: Short the Bonds, Sell the Stocks cause a recession is on it's way baby. :no_entry:
 
 In the Treasury market, shorter-term interest rates this week started to move above some longer-term rates.
 
